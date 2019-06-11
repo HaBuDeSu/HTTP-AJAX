@@ -22,9 +22,15 @@ class App extends React.Component {
 
   addNewFriend = e => {
     e.preventDefault();
-    axios.post(`http://localhost:5000/friends`, {name: "Ken", age: 29, email: "ken@growthloop.biz"})
+    axios.post(`http://localhost:5000/friends`, {
+      name: document.getElementById("name-input").value,
+      age: document.getElementById("age-input").value,
+      email: document.getElementById("email-input").value})
       .then(response => this.setState({friends: response.data}))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
+    document.getElementById("name-input").value = "";
+    document.getElementById("age-input").value = "";
+    document.getElementById("email-input").value = "";
   }
 
   render() {
