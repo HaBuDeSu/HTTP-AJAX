@@ -13,17 +13,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log("CDM");
-    fetch('server.js')
-      .then(response => response.json())
-      .then(myJson => console.log(JSON.stringify(myJson)))
+    axios
+      .get(`http://localhost:5000/friends`)
+      .then(response => this.setState({friends: response.data}))
       .catch(error => console.log(error))
   }
 
   render() {
     return (
       <div className="App">
-        <FriendsList friends={this.state.friends}/>
+        <FriendsList friends={this.state.friends} />
       </div>
     );
   }
