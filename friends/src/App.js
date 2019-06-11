@@ -33,11 +33,17 @@ class App extends React.Component {
     document.getElementById("email-input").value = "";
   }
 
+  deleteFriend(friendId) {
+    axios.delete(`http://localhost:5000/friends/${friendId}`)
+    .then(response => this.setState({friend: response.data}))
+    .catch(error => console.log(error))
+  }
+
   render() {
     return (
       <div className="App">
         <FriendForm addNewFriend={this.addNewFriend} />
-        <FriendsList friends={this.state.friends} />
+        <FriendsList friends={this.state.friends} deleteFriend={this.deleteFriend}/>
       </div>
     );
   }
