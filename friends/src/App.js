@@ -34,10 +34,11 @@ class App extends React.Component {
     document.getElementById("email-input").value = "";
   }
 
-  deleteFriend(friendId) {
+  deleteFriend = friendId => {
     axios.delete(`http://localhost:5000/friends/${friendId}`)
-    .then(response => this.setState({friend: response.data}).bind(this))
-    .catch(error => console.log(error))
+    .then(response => this.setState({friends: response.data}))
+    .catch(error => console.log(error));
+    console.log(this.state.friends);
   }
 
   render() {
