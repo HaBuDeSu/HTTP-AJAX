@@ -23,6 +23,7 @@ class App extends React.Component {
   addNewFriend = e => {
     e.preventDefault();
     axios.post(`http://localhost:5000/friends`, {
+      id: this.state.friends.length + 1,
       name: document.getElementById("name-input").value,
       age: document.getElementById("age-input").value,
       email: document.getElementById("email-input").value})
@@ -34,7 +35,9 @@ class App extends React.Component {
   }
 
   deleteFriend(friendId) {
-    console.log("Deleted")
+    axios.delete(`http://localhost:5000/friends/${friendId}`)
+    .then(response => this.setState({friend: response.data}).bind(this))
+    .catch(error => console.log(error))
   }
 
   render() {
