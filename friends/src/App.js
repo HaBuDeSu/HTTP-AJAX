@@ -40,11 +40,23 @@ class App extends React.Component {
     console.log(this.state.friends);
   }
 
+  updateFriend = friendId => {
+    axios.put(`http://localhost:5000/friends/${friendId}`, {
+      name: document.getElementById("name-input").value,
+      age: document.getElementById("age-input").value,
+      email: document.getElementById("email-input").value})
+    .then(response => this.setState({friends: response.data}))
+    .catch(error => console.log(error));
+  document.getElementById("name-input").value = "";
+  document.getElementById("age-input").value = "";
+  document.getElementById("email-input").value = "";
+  }
+
   render() {
     return (
       <div className="App">
         <FriendForm addNewFriend={this.addNewFriend} />
-        <FriendsList friends={this.state.friends} deleteFriend={this.deleteFriend}/>
+        <FriendsList friends={this.state.friends} deleteFriend={this.deleteFriend} updateFriend={this.updateFriend}/>
       </div>
     );
   }
